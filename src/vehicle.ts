@@ -1,4 +1,4 @@
-import { rover, DIRECTIONS, CAPABILITIES } from "./types";
+import { rover, point, DIRECTIONS, CAPABILITIES } from "./types";
 import { origin } from "./surface";
 
 const candidateNames: Array<string> = [
@@ -16,13 +16,13 @@ const candidateNames: Array<string> = [
     "tuareg"
 ]
 
-export const getNewRover = () => {
+export const getNewRover = (location:point=origin) => {
     const nextName: (string|undefined) = candidateNames.shift();
 
     if(nextName) {
         const nextRover: rover =  {
             name: nextName,
-            location: origin,
+            location: location,
             orientation: DIRECTIONS[1],
             condition: CAPABILITIES[0]
         }
