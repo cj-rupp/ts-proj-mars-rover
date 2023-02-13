@@ -13,3 +13,8 @@ export type rover = {
     orientation: typeof DIRECTIONS[number];
     condition: typeof CAPABILITIES[number];
 }
+
+export type plateau = {
+    apex: point,
+    origin: point,
+}
