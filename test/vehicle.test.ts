@@ -1,7 +1,7 @@
 
 import { getNewRover } from "../src/vehicle";
 import { origin } from "../src/surface";
-import { rover, point } from "../src/types";
+import { Rover, Point } from "../src/types";
 
 describe("getNewRover", () => {
 

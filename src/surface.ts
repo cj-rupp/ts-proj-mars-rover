@@ -1,20 +1,20 @@
-import { point, plateau, roverState, rover, orientation } from "./types";
+import { Point, Plateau, RoverState, Rover, Orientation } from "./types";
 import { getNewRover, getReport } from "./vehicle";
 
-let SURFACE:plateau;
+let SURFACE:Plateau;
 
-export const origin:point = { x:0, y:0};
+export const origin:Point = { x:0, y:0};
 
-const apex:point = { x:15, y:15};
+const apex:Point = { x:15, y:15};
 
 export const setNewPlateau = (top:number,right:number) => {
-    const topRight: point = { x:top, y:right };
-    const newPlateau:plateau = { apex:topRight, origin:origin };
+    const topRight: Point = { x:top, y:right };
+    const newPlateau: Plateau = { apex:topRight, origin:origin };
     SURFACE = newPlateau;
     return newPlateau;
 }
 
-export const outOfBounds = (location:point) => (
+export const outOfBounds = (location:Point) => (
     location.x > apex.x ||
     location.x < origin.x ||
     location.y > apex.y ||
@@ -23,7 +23,7 @@ export const outOfBounds = (location:point) => (
 export const roverLocations = new Map();
 export const activeRovers = new Map();
 
-export const identifyRover = (location:point,direction:orientation) => {
+export const identifyRover = (location:Point,direction:Orientation) => {
     if(roverLocations.has(location)){
         const lastReport = roverLocations.get(location);
         if(lastReport && lastReport[1] === direction){
@@ -45,14 +45,14 @@ export const identifyRover = (location:point,direction:orientation) => {
     }
     else {
         console.log("No rover at location");
-        const newState:roverState = ["request", direction, location, "operational"];
-        const pristineRover:rover = getNewRover(newState);
+        const newState:RoverState = ["request", direction, location, "operational"];
+        const pristineRover:Rover = getNewRover(newState);
         return pristineRover;
     }
 }
 
 
-export const keepTabsOnRover = (vehicle:rover) => {
+export const keepTabsOnRover = (vehicle:Rover) => {
     if(activeRovers.has(vehicle.name)) {
         const oldRover = activeRovers.get(vehicle.name);
         if(oldRover && roverLocations.has(oldRover.location)){

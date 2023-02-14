@@ -1,8 +1,6 @@
 import { move, turn } from "../src/manoeuvre";
 import { interpret } from "../src/instruct";
-import { rover, point, command } from "../src/types";
-
-let dummy:point;
+//import { Rover, Point, Command } from "../src/types";
 
 describe("interpret", () => {
 

@@ -1,8 +1,6 @@
 import { move } from "../src/manoeuvre";
 import { origin } from "../src/surface";
-import { point, DIRECTIONS } from "../src/types";
-
-let dummy:point;
+import { Point, DIRECTIONS } from "../src/types";
 
 describe("move", () => {
 
