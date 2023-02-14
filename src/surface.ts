@@ -7,11 +7,16 @@ export const origin:Point = { x:0, y:0};
 
 const apex:Point = { x:15, y:15};
 
-export const setNewPlateau = (top:number,right:number) => {
-    const topRight: Point = { x:top, y:right };
-    const newPlateau: Plateau = { apex:topRight, origin:origin };
-    SURFACE = newPlateau;
-    return newPlateau;
+export const setNewPlateau = (right:number=15,top:number=15) => {
+    if(right > origin.x && top > origin.y) {
+        const topRight: Point = { x:right, y:top };
+        const newPlateau: Plateau = { apex:topRight, origin:origin };
+        SURFACE = newPlateau;
+        return newPlateau;
+    }
+    else {
+        throw(new Error("Plateau specification too small to contain a rover"));
+    }
 }
 
 export const outOfBounds = (location:Point) => (

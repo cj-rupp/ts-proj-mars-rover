@@ -32,3 +32,13 @@ export type Plateau = {
     apex: Point,
     origin: Point,
 }
+
+export type Action = (Rotation | Displacement);
+
+export type Rotation = (this: Rover, arg1: Orientation, arg2: LegalTurn) => Orientation;
+export type Displacement = (this: Rover, arg1: Point) => Point;
+
+export type Operation = {
+    toDo: Action;
+    arg?: LegalTurn;
+}

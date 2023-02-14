@@ -1,5 +1,5 @@
-import { Point, DIRECTIONS, ROTATIONS, Orientation, LegalTurn } from "./types";
-import { outOfBounds } from "./surface";
+import { Point, DIRECTIONS, ROTATIONS, Orientation, LegalTurn, Rover, Operation, Rotation, Displacement } from "./types";
+import { outOfBounds, keepTabsOnRover } from "./surface";
 
 const directionalIncrementTable = new Map([
     ['N', { x:0, y:1 }],
@@ -22,10 +22,23 @@ export const move = (cardinalPoint:Orientation, location:Point) => {
     }
     else {
         console.log("This line should never be reached");
+        return false;
     }
 }
 
 export const turn = (currentOrientation:Orientation, turnInstruction:LegalTurn) => {
     return DIRECTIONS[(DIRECTIONS.indexOf(currentOrientation) +
         ROTATIONS.indexOf(turnInstruction) ) % DIRECTIONS.length ];
+}
+
+export const applyCommand = (vehicle:Rover,  action:Operation) => {
+    if('arg' in action && action.arg) {
+        const nextDirection: Orientation = (action.toDo as Rotation).apply(vehicle, [vehicle.orientation, action.arg]);
+        vehicle.orientation = nextDirection;
+    }
+    else{
+        const nextLocation: Point = (action.toDo as Displacement).apply(vehicle, [vehicle.location]);
+        vehicle.location = nextLocation;
+    }
+    keepTabsOnRover(vehicle);
 }
