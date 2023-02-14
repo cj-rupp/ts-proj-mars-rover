@@ -1,15 +1,17 @@
 
-export const DIRECTIONS = ['N','E','S','W'];
+export const DIRECTIONS = ['N','E','S','W'] as const;
 
 export type orientation = typeof DIRECTIONS[number];
 
-export const ROTATIONS = ['Z','L','B','R'];
+export const ROTATIONS = ['Z','L','B','R'] as const;
 
-export const COMMANDS = ['L','R','M'];
+export type legalTurn = ('L'|'R');
+
+export const COMMANDS = ['L','R','M'] as const;
 
 export type command = typeof COMMANDS[number];
 
-export const CAPABILITIES = ['operational','crashed'];
+export const CAPABILITIES = ['operational','crashed'] as const;
 
 export type condition = typeof CAPABILITIES[number];
 
@@ -23,6 +25,8 @@ export type rover = {
     orientation: orientation;
     condition: condition;
 }
+
+export type roverState = [string, orientation, point, condition];
 
 export type plateau = {
     apex: point,

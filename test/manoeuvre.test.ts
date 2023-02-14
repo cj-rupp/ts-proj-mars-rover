@@ -6,10 +6,10 @@ let dummy:point;
 
 describe("move", () => {
 
-    test('Expect move to throw an exception if either argument is null', () => {
+/*    test('Expect move to throw an exception if either argument is null', () => {
         expect(() => {move("", origin)}).toThrow("No Direction provided");
 //        expect(() => move('E', dummy)).toThrow("No position provided");
-    });
+    }); */
 
     test('Expect move return the next point in the appropriate direction', () => {
         expect(move('E', origin)).toEqual({ x:1, y:0 });

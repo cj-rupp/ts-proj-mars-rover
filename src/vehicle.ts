@@ -1,4 +1,4 @@
-import { rover, point, DIRECTIONS, CAPABILITIES } from "./types";
+import { rover, point, DIRECTIONS, CAPABILITIES, roverState, orientation } from "./types";
 import { origin } from "./surface";
 
 const candidateNames: Array<string> = [
@@ -16,15 +16,18 @@ const candidateNames: Array<string> = [
     "tuareg"
 ]
 
-export const getNewRover = (location:point=origin) => {
+const defaultState: roverState = ["request",'E',{ x:0, y:0 }, CAPABILITIES[0]];
+
+export const getNewRover = (initialState:roverState=defaultState) => {
+    const [sender, initialOrientation, initialLocation, initialCondition] = initialState;
     const nextName: (string|undefined) = candidateNames.shift();
 
-    if(nextName) {
+    if(nextName && sender === "request") {
         const nextRover: rover =  {
             name: nextName,
-            location: location,
-            orientation: DIRECTIONS[1],
-            condition: CAPABILITIES[0]
+            location: initialLocation,
+            orientation: initialOrientation,
+            condition: initialCondition
         }
         return nextRover;
     }

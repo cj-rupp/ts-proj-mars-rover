@@ -1,4 +1,4 @@
-import { point, DIRECTIONS, ROTATIONS, } from "./types";
+import { point, DIRECTIONS, ROTATIONS, orientation, legalTurn } from "./types";
 import { outOfBounds } from "./surface";
 
 const directionalIncrementTable = new Map([
@@ -8,7 +8,7 @@ const directionalIncrementTable = new Map([
     ['W', { x:-1, y:0 }],
 ]);
 
-export const move = (cardinalPoint:string, location:point) => {
+export const move = (cardinalPoint:orientation, location:point) => {
     if(cardinalPoint.length === 0 || !DIRECTIONS.includes(cardinalPoint)){
         throw(new Error("No Direction provided"));
     }
@@ -25,7 +25,7 @@ export const move = (cardinalPoint:string, location:point) => {
     }
 }
 
-export const turn = (currentOrientation:string, turnInstruction:string) => {
+export const turn = (currentOrientation:orientation, turnInstruction:legalTurn) => {
     return DIRECTIONS[(DIRECTIONS.indexOf(currentOrientation) +
         ROTATIONS.indexOf(turnInstruction) ) % DIRECTIONS.length ];
 }

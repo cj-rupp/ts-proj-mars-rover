@@ -1,4 +1,5 @@
-import { point, plateau } from "./types";
+import { point, plateau, roverState, rover, orientation } from "./types";
+import { getNewRover } from "./vehicle";
 
 let SURFACE:plateau;
 
@@ -18,4 +19,43 @@ export const outOfBounds = (location:point) => (
     location.x < origin.x ||
     location.y > apex.y ||
     location.y < origin.y);
+
+export const roverLocations = new Map();
+export const activeRovers = new Map();
+
+export const identifyRover = (location:point,direction:orientation) => {
+    if(roverLocations.has(location)){
+        const lastReport = roverLocations.get(location);
+        if(lastReport && lastReport[1] === direction){
+            const callSign = lastReport[0];
+            if(activeRovers.has(callSign)){
+                const identifiedRover = activeRovers.get(callSign);
+                if(identifiedRover){
+                    return identifiedRover;
+                }
+            }
+            else {
+                console.log("Lost track of rover!");
+            }
+        }
+        else {
+            console.log("Rover misidentified");
+            return false;
+        }
+    }
+    else {
+        console.log("No rover at location");
+        const newState:roverState = ["request", direction, location, "operational"];
+        const pristineRover:rover = getNewRover(newState);
+        return pristineRover;
+    }
+}
+
+/*
+export const keepTabsOnRover = (report:roverState) => {
+    if(activeRovers.has(report.))
+    roverLocations.set(report.location,report);
+}
+*/
+
 
