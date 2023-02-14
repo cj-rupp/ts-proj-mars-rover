@@ -13,7 +13,7 @@ export const interpret = (instructions:string) => {
         (trueCommands:Array<command>,protoCommand:string) => {
             if(isCommand(protoCommand)) {
                 trueCommands.push(protoCommand);
-            };
+            }
             return trueCommands;
         }, []);
     const operationsList = instructionList.map((instruction:command) => {

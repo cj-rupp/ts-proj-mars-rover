@@ -16,7 +16,7 @@ const candidateNames: Array<string> = [
     "tuareg"
 ]
 
-const defaultState: roverState = ["request",'E',{ x:0, y:0 }, CAPABILITIES[0]];
+const defaultState: roverState = ["request",'E', origin, CAPABILITIES[0]];
 
 export const getNewRover = (initialState:roverState=defaultState) => {
     const [sender, initialOrientation, initialLocation, initialCondition] = initialState;
@@ -34,4 +34,11 @@ export const getNewRover = (initialState:roverState=defaultState) => {
     else {
         throw(new Error("Rover supply exhausted"));
     }
+}
+
+export const getReport = (relevantRover:rover):roverState => {
+    return [relevantRover.name,
+        relevantRover.orientation,
+        relevantRover.location,
+        relevantRover.condition];
 }

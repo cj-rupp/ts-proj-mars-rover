@@ -1,5 +1,5 @@
 import { point, plateau, roverState, rover, orientation } from "./types";
-import { getNewRover } from "./vehicle";
+import { getNewRover, getReport } from "./vehicle";
 
 let SURFACE:plateau;
 
@@ -51,11 +51,21 @@ export const identifyRover = (location:point,direction:orientation) => {
     }
 }
 
-/*
-export const keepTabsOnRover = (report:roverState) => {
-    if(activeRovers.has(report.))
-    roverLocations.set(report.location,report);
+
+export const keepTabsOnRover = (vehicle:rover) => {
+    if(activeRovers.has(vehicle.name)) {
+        const oldRover = activeRovers.get(vehicle.name);
+        if(oldRover && roverLocations.has(oldRover.location)){
+            const oldReport = roverLocations.get(oldRover.location);
+            if(oldReport && oldReport[0] === vehicle.name){
+                roverLocations.delete(oldRover.location);
+            }
+        }
+    }
+    const newReport = getReport(vehicle);
+    activeRovers.set(vehicle.name,vehicle);
+    roverLocations.set(vehicle.location, newReport);
 }
-*/
+
 
 
