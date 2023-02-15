@@ -1,11 +1,9 @@
 
 import { getNewRover } from "../src/vehicle";
-import { origin } from "../src/surface";
-import { Rover, Point } from "../src/types";
 
 describe("getNewRover", () => {
 
-    test('Expect getNewRover to return a well-formet rover', () => {
+    test('Expect getNewRover to return a well-formed rover', () => {
         expect(getNewRover(["request",'E',{ x:0, y:0 }, "operational"])).toEqual({
             location: { x:0, y:0 },
             name:"nomad",

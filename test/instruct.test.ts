@@ -1,6 +1,5 @@
 import { move, turn } from "../src/manoeuvre";
 import { interpret, instructionsToOperations } from "../src/instruct";
-import { Rover, Point, Command } from "../src/types";
 
 describe("interpret", () => {
 

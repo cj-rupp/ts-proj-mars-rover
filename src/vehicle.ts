@@ -1,7 +1,7 @@
-import { Rover, Point, DIRECTIONS, CAPABILITIES, RoverState, Orientation } from "./types";
+import { Rover, CAPABILITIES, RoverState } from "./types";
 import { origin } from "./surface";
 
-const candidateNames: Array<string> = [
+const nameBank: Array<string> = [
     "nomad",
     "wanderer",
     "itinerant",
@@ -15,6 +15,8 @@ const candidateNames: Array<string> = [
     "bedouin",
     "tuareg"
 ]
+
+let candidateNames = [...nameBank];
 
 const defaultState: RoverState = ["request",'E', origin, CAPABILITIES[0]];
 
@@ -41,4 +43,8 @@ export const getReport = (relevantRover:Rover):RoverState => {
         relevantRover.orientation,
         relevantRover.location,
         relevantRover.condition];
+}
+
+export const resetNaming = () => {
+    candidateNames = [...nameBank];
 }

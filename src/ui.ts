@@ -9,8 +9,9 @@ let ROVER_ADDRESSEE: Rover;
 
 export const readFile = (fileContents:string) => {
     /* split into lines */
-    const inputLines: Array<string> = fileContents.split(/\r?\n/g);
-
+    const inputLines: Array<string> = fileContents.split(/[\r?\n]+/g);
+    const lineReports = inputLines.map((line) => { return readLine(line) });
+    return lineReports;
 }
 
 export const readLine = (lineString:string) => {

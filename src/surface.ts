@@ -1,5 +1,5 @@
 import { Point, Plateau, RoverState, Rover, Orientation } from "./types";
-import { getNewRover, getReport } from "./vehicle";
+import { getNewRover, getReport, resetNaming } from "./vehicle";
 
 let SURFACE:Plateau;
 
@@ -7,11 +7,12 @@ export const origin:Point = { x:0, y:0};
 
 const apex:Point = { x:15, y:15};
 
-export const setNewPlateau = (right:number=15,top:number=15) => {
+export const setNewPlateau = (right=15,top=15) => {
     if(right > origin.x && top > origin.y) {
         const topRight: Point = { x:right, y:top };
         const newPlateau: Plateau = { apex:topRight, origin:origin };
         SURFACE = newPlateau;
+        resetRecords();
         return newPlateau;
     }
     else {
@@ -27,6 +28,12 @@ export const outOfBounds = (location:Point) => (
 
 export const roverLocations = new Map();
 export const activeRovers = new Map();
+
+const resetRecords = () => {
+    roverLocations.clear();
+    activeRovers.clear();
+    resetNaming();
+}
 
 export const identifyRover = (location:Point,direction:Orientation) => {
     if(roverLocations.has(location)){

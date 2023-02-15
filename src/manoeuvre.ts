@@ -1,5 +1,5 @@
 import { Point, DIRECTIONS, ROTATIONS, Orientation, LegalTurn, Rover, Operation, Rotation, Displacement } from "./types";
-import { outOfBounds, keepTabsOnRover } from "./surface";
+import { outOfBounds, roverLocations } from "./surface";
 
 const directionalIncrementTable = new Map([
     ['N', { x:0, y:1 }],
@@ -38,9 +38,13 @@ export const applyCommand = (vehicle:Rover,  action:Operation) => {
     }
     else{
         const nextLocation: (Point|false) = (action.toDo as Displacement).apply(vehicle, [vehicle.orientation, vehicle.location]);
-        if(nextLocation) {
+        if(nextLocation && probe(nextLocation)) {
             vehicle.location = nextLocation;
         }
     }
     return vehicle;
+}
+
+export const probe = (probeSpace:Point) => {
+    return ((roverLocations.has(probeSpace)) ? false : true);
 }

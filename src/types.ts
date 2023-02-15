@@ -3,7 +3,7 @@ export const DIRECTIONS = ['N','E','S','W'] as const;
 
 export type Orientation = typeof DIRECTIONS[number];
 
-export const ROTATIONS = ['Z','L','B','R'] as const;
+export const ROTATIONS = ['Z','R','B','L'] as const;
 
 export type LegalTurn = ('L'|'R');
 
