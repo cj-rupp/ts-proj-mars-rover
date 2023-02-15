@@ -72,5 +72,12 @@ export const keepTabsOnRover = (vehicle:Rover) => {
     roverLocations.set(vehicle.location, newReport);
 }
 
+export const reportPlateau = () => {
+    if(SURFACE !== undefined){
+        const { origin: { x: ox, y: oy}, apex: { x: ax, y: ay } } = SURFACE;
+        return [ox,oy,ax,ay];
+    }
+}
+
 
 
