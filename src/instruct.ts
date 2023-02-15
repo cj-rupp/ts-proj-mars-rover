@@ -1,4 +1,4 @@
-import { Command, RoverState, Point, COMMANDS} from "./types";
+import { Command, RoverState, Point, COMMANDS, Operation } from "./types";
 import { move, turn } from "./manoeuvre";
 
 const commandPattern = `^[${COMMANDS.join("")}]+`;
@@ -8,7 +8,7 @@ const isCommand = (possibleCommand:string): possibleCommand is Command => {
     return testCommands.includes(possibleCommand);
 }
 
-export const interpret = (instructions:string) => {
+export const interpret = (instructions:string): Array<Command> => {
     if(instructions.length === 0) { throw(new Error("No instructions provided"))}
     if(!instructions.match(commandPattern)) { throw(new Error("Unknown instruction submitted"))}
     const rawInstructionList:Array<string> = instructions.split("")
@@ -22,7 +22,7 @@ export const interpret = (instructions:string) => {
 }
 
 export const instructionsToOperations = (instructions:Array<Command>) => {
-    const operationsList = instructions.map((instruction:Command) => {
+    const operationsList:Array<Operation> = instructions.map((instruction:Command) => {
         return (instruction === 'M') ? { toDo: move } : { toDo: turn, arg: instruction};
     })
     return operationsList;

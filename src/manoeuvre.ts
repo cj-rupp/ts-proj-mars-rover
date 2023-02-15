@@ -8,7 +8,7 @@ const directionalIncrementTable = new Map([
     ['W', { x:-1, y:0 }],
 ]);
 
-export const move = (cardinalPoint:Orientation, location:Point) => {
+export const move:Displacement = (cardinalPoint:Orientation, location:Point) => {
     if(cardinalPoint.length === 0 || !DIRECTIONS.includes(cardinalPoint)){
         throw(new Error("No Direction provided"));
     }
@@ -26,7 +26,7 @@ export const move = (cardinalPoint:Orientation, location:Point) => {
     }
 }
 
-export const turn = (currentOrientation:Orientation, turnInstruction:LegalTurn) => {
+export const turn:Rotation = (currentOrientation:Orientation, turnInstruction:LegalTurn) => {
     return DIRECTIONS[(DIRECTIONS.indexOf(currentOrientation) +
         ROTATIONS.indexOf(turnInstruction) ) % DIRECTIONS.length ];
 }
@@ -37,8 +37,10 @@ export const applyCommand = (vehicle:Rover,  action:Operation) => {
         vehicle.orientation = nextDirection;
     }
     else{
-        const nextLocation: Point = (action.toDo as Displacement).apply(vehicle, [vehicle.location]);
-        vehicle.location = nextLocation;
+        const nextLocation: (Point|false) = (action.toDo as Displacement).apply(vehicle, [vehicle.orientation, vehicle.location]);
+        if(nextLocation) {
+            vehicle.location = nextLocation;
+        }
     }
-    keepTabsOnRover(vehicle);
+    return vehicle;
 }
